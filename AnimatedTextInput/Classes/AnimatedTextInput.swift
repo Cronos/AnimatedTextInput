@@ -66,6 +66,7 @@ public class AnimatedTextInput: UIControl {
     private var placeholderPosition: CGPoint {
         let hintPosition = CGPoint(x: style.leftMargin, y: style.yHintPositionOffset)
         let defaultPosition = CGPoint(x: style.leftMargin, y: style.topMargin + style.yPlaceholderPositionOffset)
+        
         return isPlaceholderAsHint ? hintPosition : defaultPosition
     }
 
@@ -115,10 +116,11 @@ public class AnimatedTextInput: UIControl {
     }
 
     private func addTextInputConstraints() {
-        pinLeading(toLeadingOf: textInput.view, constant: style.leftMargin)
-        pinTrailing(toTrailingOf: textInput.view, constant: style.rightMargin)
-        pinTop(toTopOf: textInput.view, constant: style.topMargin)
-        textInput.view.pinBottom(toTopOf: lineView, constant: style.bottomMargin)
+        let view = textInput.view
+        pinLeading(toLeadingOf: view, constant: style.leftMargin)
+        pinTrailing(toTrailingOf: view, constant: style.rightMargin)
+        pinTop(toTopOf: view, constant: style.topMargin)
+        view.pinBottom(toTopOf: lineView, constant: style.bottomMargin)
     }
 
     private func setupCommonElements() {
@@ -138,8 +140,9 @@ public class AnimatedTextInput: UIControl {
         placeholderLayer.masksToBounds = false
         placeholderLayer.string = placeHolderText
         placeholderLayer.foregroundColor = style.inactiveColor.CGColor
-        placeholderLayer.fontSize = style.textInputFont.pointSize
-        placeholderLayer.font = style.textInputFont
+        let font = style.textInputFont
+        placeholderLayer.font = font
+        placeholderLayer.fontSize = font.pointSize
         placeholderLayer.contentsScale = UIScreen.mainScreen().scale
         placeholderLayer.backgroundColor = UIColor.clearColor().CGColor
         layoutPlaceholderLayer()
