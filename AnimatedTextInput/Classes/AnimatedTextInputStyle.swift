@@ -24,11 +24,11 @@ public struct AnimatedTextInputStyleBlue: AnimatedTextInputStyle {
     public let textInputFontColor = UIColor.blackColor()
     public let placeholderMinFontSize: CGFloat = 9
     public let counterLabelFont: UIFont? = UIFont.systemFontOfSize(9)
-    public let leftMargin: CGFloat = 25
-    public let topMargin: CGFloat = 20
-    public let rightMargin: CGFloat = 0
-    public let bottomMargin: CGFloat = 10
-    public let yHintPositionOffset: CGFloat = 7
+    public let leftMargin: CGFloat = 25.0
+    public let topMargin: CGFloat = 20.0
+    public let rightMargin: CGFloat = 0.0
+    public let bottomMargin: CGFloat = 10.0
+    public let yHintPositionOffset: CGFloat = 7.0
 
     public init() { }
 }
