@@ -69,6 +69,23 @@ Then, use the `style` property to set it.
 textInput.style = CustomTextInputStyle()
 ```
 
+### Binding
+
+You can use this for 'subscripe' on event 'did change text' without delegate methods
+
+```swift
+func didTextChangeBindTo(string: String?, changeCallback: ((text: String?) -> ())? = nil
+func unbindToDidChange()
+```
+For example:
+
+```swift
+textInput.didTextChangeBindTo(model.name, changeCallback: { (text) in
+    model.name = text
+})
+```
+
+
 ### Other considerations
 
 - You can use `AnimatedTextInput` as a replacement for either `UITextField` or `UITextView`. To set or retrieve the input text, use the `text` property.
