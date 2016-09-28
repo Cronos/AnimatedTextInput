@@ -47,6 +47,26 @@ public class AnimatedTextInput: UIControl {
         }
     }
 
+    //MARK: Binding
+    
+    internal var didChangeTextCallback: (() -> ())? = nil
+    
+    public func didTextChangeBindTo(string: String?, changeCallback: ((text: String?) -> ())? = nil) {
+        self.text = string
+        didChangeTextCallback = {
+            guard let callback = changeCallback else {
+                return
+            }
+            callback(text: self.text)
+        }
+    }
+    
+    public func unbindToDidChange() {
+        didChangeTextCallback = nil
+    }
+    
+    //MARK: Private Methods
+
     private let lineView = AnimatedLine()
     private let placeholderLayer = CATextLayer()
     private let counterLabel = UILabel()
@@ -321,11 +341,19 @@ extension AnimatedTextInput: TextInputDelegate {
     public func textInputDidEndEditing(textInput: TextInput) {
         resignFirstResponder()
         delegate?.animatedTextInputDidEndEditing?(self)
+        guard let callback = didChangeTextCallback else {
+            return
+        }
+        callback()
     }
 
     public func textInputDidChange(textInput: TextInput) {
         updateCounter()
         delegate?.animatedTextInputDidChange?(self)
+        guard let callback = didChangeTextCallback else {
+            return
+        }
+        callback()
     }
 
     public func textInput(textInput: TextInput, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
