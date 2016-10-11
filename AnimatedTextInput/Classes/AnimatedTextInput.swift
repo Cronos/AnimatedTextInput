@@ -59,7 +59,7 @@ public class AnimatedTextInput: UIControl {
             guard let callback = changeCallback else {
                 return
             }
-            callback(text: self.text)
+            callback(self.text)
         }
     }
     
@@ -86,7 +86,7 @@ public class AnimatedTextInput: UIControl {
     private var placeholderPosition: CGPoint {
         let hintPosition = CGPoint(x: style.leftMargin, y: style.yHintPositionOffset)
         let defaultPosition = CGPoint(x: style.leftMargin, y: style.topMargin + style.yPlaceholderPositionOffset)
-        
+
         return isPlaceholderAsHint ? hintPosition : defaultPosition
     }
 
