@@ -53,7 +53,7 @@ public class AnimatedTextInput: UIControl {
     
     internal var didChangeTextCallback: (() -> ())? = nil
     
-    public func didTextChangeBindTo(string: String?, changeCallback: ((text: String?) -> ())? = nil) {
+    public func didTextChangeBindTo(string: String?, changeCallback: ((String?) -> ())? = nil) {
         self.text = string
         didChangeTextCallback = {
             guard let callback = changeCallback else {
@@ -292,7 +292,7 @@ public class AnimatedTextInput: UIControl {
     }
 
     private func animateToInactiveState() {
-        guard let text = textInput.currentText where !text.isEmpty else {
+        guard let text = textInput.currentText, !text.isEmpty else {
             animatePlaceholder(to: configurePlaceholderAsDefault)
             return
         }
